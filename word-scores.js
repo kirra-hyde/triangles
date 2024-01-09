@@ -1,16 +1,20 @@
-function wordScores(arr) {
-  let newArr = [];
-  for (let x of arr) {
-    let num = 0;
-    for (let y of x) {
-      num += obj[y.toUpperCase()];
+function calculateWordScores(words) {
+  let wordScores = [];
+  for (let word of words) {
+    let score = 0;
+    for (let char of word) {
+      if (!(char.toUpperCase() in LETTER_SCORES)) {
+        score = null;
+        break;
+      }
+      score += LETTER_SCORES[char.toUpperCase()];
     }
-    newArr.push(num);
+    wordScores.push(score);
   }
-  return newArr;
+  return wordScores;
 }
 
-let obj = {
+const LETTER_SCORES = {
   A: 1,
   B: 3,
   C: 3,
