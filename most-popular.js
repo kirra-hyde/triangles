@@ -1,17 +1,29 @@
-function mostPopular(s) {
-  let ltr_obj = {};
-  let common = [];
-  let high = 0;
-  for (let letter of s) {
-    const count = (ltr_obj[letter] || 0) + 1;
-    ltr_obj[letter] = count;
-    if (count > high) {
-      common = [letter];
-      high = count;
-    } else if (count == high) {
-      common.push(letter);
+"use strict";
+
+function mostPopular(word) {
+  const freqs = getFreqs(word);
+  let mostCommonLetters = [];
+  let highCount = 0;
+
+  for (let letter in freqs) {
+
+    if (freqs[letter] > highCount) {
+      mostCommonLetters = [letter];
+      highCount = freqs[letter];
+    } else if (highCount === freqs[letter]) {
+      mostCommonLetters.push(letter);
     }
   }
 
-  return common;
+  return mostCommonLetters;
+}
+
+function getFreqs(word) {
+  const freqs = {}
+
+  for (let char of word) {
+    freqs[char] = (freqs[char] || 0) + 1
+  }
+
+  return freqs;
 }
