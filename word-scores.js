@@ -1,18 +1,4 @@
-function calculateWordScores(words) {
-  let wordScores = [];
-  for (let word of words) {
-    let score = 0;
-    for (let char of word) {
-      if (!(char.toUpperCase() in LETTER_SCORES)) {
-        score = null;
-        break;
-      }
-      score += LETTER_SCORES[char.toUpperCase()];
-    }
-    wordScores.push(score);
-  }
-  return wordScores;
-}
+"use strict";
 
 const LETTER_SCORES = {
   A: 1,
@@ -42,3 +28,23 @@ const LETTER_SCORES = {
   Y: 4,
   Z: 10
 };
+
+
+function calculateWordScores(words) {
+
+  return words.map(word => scoreWord(word))
+}
+
+function scoreWord(word, letterValues = LETTER_SCORES) {
+  let score = 0;
+
+  for (let char of word) {
+    const letter = char.toUpperCase();
+    if (!(letter in letterValues)) {
+      return null;
+    }
+    score += letterValues[letter];
+  }
+
+  return score;
+}
